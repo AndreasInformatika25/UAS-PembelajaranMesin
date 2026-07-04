@@ -47,5 +47,15 @@ Extracts key domain entities using two parallel methods for a robust comparative
 * **NER Rule-Based:** Relies on tailored Regex regular expressions combined with a *Custom Dictionary* targeting key terms (e.g., 'ojk', 'polisi', 'bpjs', etc.).
 * **NER Conclusion:** The *Rule-Based* approach demonstrated a significantly higher and more contextually accurate entity extraction count (capturing entities such as "Indonesia", "Bpjs", and "Ojk") compared to the generic SpaCy pipeline.
 
+## 🚀 How to Use (Execution Guide)
+You can easily run and reproduce this project using Google Colab. Follow these simple steps:
+1. **Open the Notebook:** Click on the provided Google Colab link in this repository to open the project environment. 
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W_-h0EHdlAmq3N3i1qmQEdM-ZOz3tc7j?usp=sharing)
+2. **Upload Datasets:** In the Colab environment, open the file explorer panel on the left and upload the following three required files:
+   * `korba-pinjol.csv` (The raw dataset)
+   * `slang.csv` (Dictionary for normalization)
+   * `stopword.csv` (Custom stopword list)
+3. **Run All Cells:** Once the files are successfully uploaded, simply go to the top menu, select **Runtime**, and click **Run all** (or press `Ctrl+F9`). The script will automatically execute the preprocessing, modeling, SNA, and NER pipeline from start to finish.
+
 ## 🧑‍💻 Author
 * **Name / NIM:** Andreas / 2411500750
