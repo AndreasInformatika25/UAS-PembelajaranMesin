@@ -1,51 +1,51 @@
-# [cite_start]Integrasi Topic Modeling, Social Network Analysis, dan NER pada Kasus Korban Pinjol [cite: 10, 11]
+# Integration of Topic Modeling, Social Network Analysis, and NER on Online Loan (Pinjol) Victim Cases
 
-## 📌 Deskripsi Proyek
-[cite_start]Repositori ini berisi dokumentasi dan implementasi *code* untuk Ujian Akhir Semester (UAS) mata kuliah Pembelajaran Mesin[cite: 10, 11]. [cite_start]Proyek ini berfokus pada integrasi tiga pendekatan analisis teks yaitu *Topic Modeling*, *Social Network Analysis* (SNA), dan *Named Entity Recognition* (NER) untuk membedah opini publik dengan tema utama "Korban Pinjol" (Pinjaman Online)[cite: 10, 11].
+## 📌 Project Description
+This repository contains the documentation and implementation code for the Final Semester Examination (UAS) in the Machine Learning course. The project focuses on integrating three distinct text analysis approaches: *Topic Modeling*, *Social Network Analysis* (SNA), and *Named Entity Recognition* (NER) to comprehensively dissect public opinion surrounding the core theme of "Korban Pinjol" (Online Loan Victims).
 
-## 🛠️ Pengumpulan Data (Crawling)
-[cite_start]Data dikumpulkan melalui platform Twitter (X) dan menghasilkan total 1538 data/tweet mentah yang disimpan dalam format Excel[cite: 20, 21]. 
+## 🛠️ Data Collection (Crawling)
+Data was systematically scraped from Twitter (X), yielding a total of 1,538 raw tweets/data entries stored in Excel format.
 
-[cite_start]Pencarian data dilakukan menggunakan sekumpulan kata kunci spesifik[cite: 14]:
-* [cite_start]gagal bayar pinjol [cite: 15]
-* [cite_start]pinjol galbay [cite: 16]
-* [cite_start]dc lapangan pinjol [cite: 17]
-* [cite_start]sebar data pinjol [cite: 18]
-* [cite_start]korban pinjol [cite: 19]
+The data retrieval process was conducted using a specific set of target keywords:
+* gagal bayar pinjol (online loan default)
+* pinjol galbay (loan default)
+* dc lapangan pinjol (loan field debt collectors)
+* sebar data pinjol (loan data shaming/breach)
+* korban pinjol (online loan victims)
 
-## 🧹 Preprocessing Data
-[cite_start]Untuk menghasilkan data yang siap diolah oleh model, dilakukan tahapan *preprocessing* sistematis[cite: 29]:
-1. [cite_start]**Menghapus Duplikat:** Membersihkan *tweet* yang redundan[cite: 41, 42].
-2. [cite_start]**Case Folding:** Menyeragamkan seluruh karakter teks menjadi huruf kecil (*lowercase*)[cite: 50].
-3. [cite_start]**Cleaning Data:** Menghapus tag RT, URL/tautan, *mention*, karakter khusus, emoji, serta spasi berlebih[cite: 69, 73, 76, 78, 80].
-4. [cite_start]**Ekstraksi Atribut:** Memisahkan *username* pada kolom *author* dan menarik seluruh *mention* spesifik untuk kebutuhan pembangunan jaringan SNA[cite: 84, 89, 92].
-5. [cite_start]**Tokenisasi:** Memecah kalimat menjadi token kata menggunakan pustaka NLTK[cite: 100, 104].
-6. [cite_start]**Normalisasi:** Memperbaiki penulisan kata tidak baku menggunakan penggabungan kamus eksternal (CSV) dan kamus manual[cite: 110, 111].
-7. [cite_start]**Stop Word Removal:** Memfilter kata-kata hubung atau tidak bermakna menggunakan bantuan pustaka NLTK, CSV, dan kamus manual (*custom filter* khusus domain pinjol)[cite: 132, 408, 409, 410, 411, 412].
-8. [cite_start]**Stemming:** Mengembalikan kata ke bentuk dasarnya menggunakan *library* Sastrawi[cite: 144, 146].
+## 🧹 Data Preprocessing
+To ensure the data was fully prepared for model injection, a systematic preprocessing pipeline was implemented:
+1. **Duplicate Removal:** Eliminating redundant and identical tweets.
+2. **Case Folding:** Standardizing all text characters into lowercase.
+3. **Data Cleaning:** Stripping out RT tags, URLs/hyperlinks, user mentions, special characters, emojis, and excess whitespaces.
+4. **Attribute Extraction:** Isolating handles into the *author* column and extracting specific *mentions* required to construct the SNA network graph.
+5. **Tokenization:** Splitting continuous text into individual word tokens using the NLTK library.
+6. **Normalization:** Correcting slang and non-standard words using a combination of an external mapping dictionary (CSV) and manual overrides.
+7. **Stop Word Removal:** Filtering out conjunctions and meaningless words using NLTK, a custom CSV list, and a domain-specific filter refined for online loan contexts.
+8. **Stemming:** Reducing words to their morphological base form using the Sastrawi library.
 
-## ⚙️ Metodologi & Hasil
+## ⚙️ Methodology & Results
 ### 1. Topic Modeling
-Proyek ini membandingkan penggunaan dua algoritma *clustering*:
-* [cite_start]**Frequent Term-Based Text Clustering (FTC):** Menggunakan ekstraksi *frequent termsets* dan perhitungan *Entropy Overlap* dengan rumus $EO(C_{i})=\sum_{D_{j}\in C_{i}}\frac{-1}{f_{j}}.Ln(\frac{1}{f_{j}})$ untuk mengevaluasi kualitas klaster[cite: 184, 185, 189]. [cite_start]Model dijalankan dengan parameter *minimum support* (`minsup`) sebesar 0.05[cite: 238].
-* [cite_start]**Latent Dirichlet Allocation (LDA):** Berbasis pemodelan probabilistik dengan evaluasi menggunakan metrik *Elbow Perplexity*[cite: 404, 463]. [cite_start]Berdasarkan kurva perplexity, didapatkan nilai K optimal sebesar K=3[cite: 520, 529].
-  * [cite_start]**Topik 1:** Teror Debt Collector & Korban Pinjol [cite: 530]
-  * [cite_start]**Topik 2:** Utang, Kredit & Kondisi Ekonomi [cite: 532]
-  * [cite_start]**Topik 3:** Pelaporan Pinjol Ilegal & Dampak Sosial [cite: 534]
+This project evaluates and compares the performance of two text clustering algorithms:
+* **Frequent Term-Based Text Clustering (FTC):** Utilizes frequent termsets extraction and *Entropy Overlap* calculation using the formula $EO(C_{i})=\sum_{D_{j}\in C_{i}}\frac{-1}{f_{j}}.Ln(\frac{1}{f_{j}})$ to evaluate final cluster quality. The model was executed with a *minimum support* (`minsup`) parameter of 0.05.
+* **Latent Dirichlet Allocation (LDA):** A probabilistic generative model evaluated via the *Elbow Perplexity* metric. Based on the generated perplexity curve, an optimal value of K=3 was discovered:
+  * **Topic 1:** Debt Collector Terror & Online Loan Victims
+  * **Topic 2:** Debt, Credit & Economic Hardships
+  * **Topic 3:** Reporting Illegal Loans & Wider Social Impacts
 
 ### 2. Social Network Analysis (SNA)
-[cite_start]Digunakan untuk memetakan dinamika interaksi (mention) antar akun terkait topik Pinjol[cite: 548, 669].
-* [cite_start]**Visualisasi & Tools:** Data diekspor ke dalam bentuk `edge_list.csv` dan `node_list.csv` untuk diproses di Gephi, serta disajikan interaktif melalui *library* PyVis[cite: 550, 551, 552].
+Implemented to map out and analyze the interaction dynamics (mentions) between distinct user accounts interacting within the online loan topic.
+* **Visualization & Tools:** Processed data was exported into structured `edge_list.csv` and `node_list.csv` files to be visualized in Gephi, and rendered interactively using the PyVis library.
 * **Centrality Metrics:**
-  * [cite_start]Top Akun Paling Sering Di-mention (*Indegree*): `@ojkindonesia` (0.0187) dan `@prabowo` (0.0156)[cite: 635, 646].
-  * [cite_start]Top Akun Paling Aktif Mention (*Outdegree*): `@belengbeleng687` (0.0374) dan `@divhumas_polri` (0.0234)[cite: 652, 663].
-* [cite_start]Hasil analisis jaringan di Gephi mencapai skor *Community Detection* sebesar 0.929[cite: 676].
+  * Top Most Mentioned Accounts (*Indegree*): `@ojkindonesia` (0.0187) and `@prabowo` (0.0156).
+  * Top Most Active Mentioning Accounts (*Outdegree*): `@belengbeleng687` (0.0374) and `@divhumas_polri` (0.0234).
+* The graph analysis within Gephi successfully achieved a *Community Detection* modularity score of 0.929.
 
 ### 3. Named Entity Recognition (NER)
-[cite_start]Mengekstrak entitas-entitas penting menggunakan dua metode untuk perbandingan komprehensif[cite: 687]:
-* [cite_start]**NER SpaCy Indonesian:** Menggunakan model *pre-trained* `id_ner_spacy_indonesian` untuk mendeteksi entitas bersasarkan label ORG, GPE, PERSON, NOR, dan LOC[cite: 692, 696, 700].
-* [cite_start]**NER Rule-Based:** Mengandalkan integrasi pola *Regex* dan *Custom Dictionary* (seperti 'ojk', 'polisi', 'bpjs', dll)[cite: 762, 764, 772].
-* [cite_start]**Kesimpulan NER:** Metode *Rule-Based* terbukti memberikan hasil ekstraksi jumlah entitas (seperti "Indonesia", "Bpjs", dan "Ojk") yang lebih banyak dan relevan dibandingkan metode SpaCy[cite: 847, 850].
+Extracts key domain entities using two parallel methods for a robust comparative assessment:
+* **NER SpaCy Indonesian:** Utilizes the pre-trained `id_ner_spacy_indonesian` model pipeline to extract entities based on ORG, GPE, PERSON, NOR, and LOC labels.
+* **NER Rule-Based:** Relies on tailored Regex regular expressions combined with a *Custom Dictionary* targeting key terms (e.g., 'ojk', 'polisi', 'bpjs', etc.).
+* **NER Conclusion:** The *Rule-Based* approach demonstrated a significantly higher and more contextually accurate entity extraction count (capturing entities such as "Indonesia", "Bpjs", and "Ojk") compared to the generic SpaCy pipeline.
 
-## 🧑‍💻 Penulis
-* [cite_start]**Nama / NIM:** Andreas / 2411500750 [cite: 6]
+## 🧑‍💻 Author
+* **Name / NIM:** Andreas / 2411500750
